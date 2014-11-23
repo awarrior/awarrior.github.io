@@ -33,7 +33,7 @@ host:         localhost
 baseurl:      "" # does not include hostname
 
 # Outputting
-permalink:     date
+permalink:     /:title  #date
 paginate_path: /page:num
 timezone:      null
 
