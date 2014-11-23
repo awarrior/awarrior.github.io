@@ -29,7 +29,7 @@ excerpt_separator: "\n\n"
 # Serving
 detach:       false
 port:         4000
-host:         127.0.0.1
+host:         localhost
 baseurl:      "" # does not include hostname
 
 # Outputting
@@ -39,9 +39,9 @@ timezone:      null
 
 # Basic
 title: Awarrior
-subTitle: Keep Stupid
-description: Awarrior Blog
-url: http://awarrior.github.io
+subTitle: The hard part isn’t making the decision. It’s living with it.
+description: Awarrior
+url: http://localhost:4000 #http://awarrior.github.io
 feed: /atom.xml
 
 # Settings
@@ -68,15 +68,18 @@ nav:
     class: none
 
 page:
-  - text: 文章分类
+  - text: Archives
     url: /archives.html
     last: true
-  - text: 友情链接
+  - text: Github
+    url: https://github.com/awarrior
+    last: true
+  - text: Links
     url: /links.html
     last: true
-  - text: 关于我
+  - text: Author
     url: /contact.html
     last: false
 
 author:
-  name: PIZn
+  name: awarrior
