@@ -2,6 +2,7 @@
 layout: post
 title: First Page
 description: 
+category: STUFF
 ---
 
 Stable is a simple word but is not simple.

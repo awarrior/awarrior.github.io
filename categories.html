@@ -1,0 +1,44 @@
+---
+layout: default
+title: Categories
+description: 
+keywords:
+---
+
+<p class="lotus-breadcrub">
+  <a href="{{ site.url }}/index.html" rel="nofollow" rel="nofollow" title="home">Home</a>
+  <span> &gt; </span>
+  {{ page.title }}
+</p>
+
+<h1 class="lotus-pagetit">All Articles</h1>
+<article id="archives">
+
+{% for post in site.posts  %}
+  {% capture this_category %}{{ post.category }}{% endcapture %}
+  {% capture next_category %}{{ post.previous.category }}{% endcapture %}
+
+  {% if forloop.first %}
+    <ul>
+        <li><span>{{this_category}} &nbsp;</span>
+            <ul>
+  {% endif %}
+
+                <li><a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
+
+  {% if forloop.last %}
+            </ul>
+        </li>
+    </ul>
+  {% else %}
+    {% if this_category != next_category %}
+            </ul>
+        </li>
+    </ul>
+    <ul>
+          <li><span>{{next_category}} &nbsp;</span>
+            <ul>
+    {% endif %}
+  {% endif %}
+{% endfor %}
+</article>

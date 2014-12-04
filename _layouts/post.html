@@ -5,13 +5,13 @@ layout: default
 <p class="lotus-breadcrub">
     <a href="{{ site.url }}/index.html" rel="nofollow" rel="nofollow" title="home">Home</a>
     <span> &gt; </span>
-    <a href="{{ site.url }}/archives.html" rel="nofollow" >Archives</a>
+    <!-- <a href="{{ site.url }}/archives.html" rel="nofollow" >Archives</a>
     <span> &gt; </span>
-    <!-- {{ page.title }} -->
+    {{ page.title }} -->
     Post
 </p>
 <h1 class="lotus-pagetit">{{ page.title }}</h1>
-<p class="lotus-meta">Publish: <time class="date" pubdate="{{ page.date  | date: "%B %e, %Y" }}">{{ page.date | date: "%B %e, %Y" }}</time></p>
+<p class="lotus-meta">Category: {{ page.category }} &nbsp;|&nbsp;  Publish: <time class="date" pubdate="{{ page.date  | date: "%B %e, %Y" }}">{{ page.date | date: "%B %e, %Y" }}</time></p>
 <article  itemscope itemtype="http://schema.org/Article" class="lotus-post">
 {{ content }}
 </article>
