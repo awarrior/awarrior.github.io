@@ -51,8 +51,8 @@ nav:
     url: /index.html
     icon: icon-home
     class: home
-  - text: Category
-    url: /category.html
+  - text: Categories
+    url: /categories.html
     icon: icon-tags
     class: none
   - text: Archives
@@ -75,14 +75,19 @@ nav:
 page:
   - text: Categories
     url: /categories.html
+	last: true
   - text: Archives
     url: /archives.html
+	last: true
   - text: Github
     url: https://github.com/awarrior
+	last: true
   - text: Links
     url: /links.html
+	last: true
   - text: Author
     url: /contact.html
+	last: false
 
 author:
   name: Awarrior
