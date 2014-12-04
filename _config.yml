@@ -75,19 +75,19 @@ nav:
 page:
   - text: Categories
     url: /categories.html
-	last: true
+    last: true
   - text: Archives
     url: /archives.html
-	last: true
+    last: true
   - text: Github
     url: https://github.com/awarrior
-	last: true
+    last: true
   - text: Links
     url: /links.html
-	last: true
+    last: true
   - text: Author
     url: /contact.html
-	last: false
+    last: false
 
 author:
   name: Awarrior
