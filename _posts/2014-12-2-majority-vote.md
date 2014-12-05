@@ -7,11 +7,27 @@ category: ISSUE
 
 ### Describe
 
-Give you a log of searching that contains N words, how to find out one key word which appears over N/2 times, just using O(n) time complexity?
+Give you a log of searching that contains N words, how to find out one key word which appears over N/2 times (definitely exists), just using O(n) time complexity?
 
 ### Analyze
 
-A majority word is still a major one if we minus two words which are different from each other. Otherwise, if the two words are the same, we can save the information of this word.
+There is a very important pre-condition in this issue: *the target word which we want to find definitely exists*.
+
+Let's see several examples first:
+
+`(A B) C A A B`  
+`(A B) C A A B A`  
+It doesn't matter if we leave A&B out, A is still the result.
+
+`(C B) A A A B A`  
+It doesn't matter if we leave C&B out, A is still the result.
+
+`(A A) C B A B A`  
+We have to record the apperance times of A for further judgement.
+
+Here we consider two word each time. A majority word is still a major one if we minus two words which are different from each other. Otherwise, if the two words are the same, we also need to save the information of this word.
+
+Actually, we can consider this words sequence as conbination of several word pairs (two words). 
 
 ### Resolve
 
