@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>
         
-            Majority Vote
+            Reservoir Sampling
         
     </title>
     <meta name="generator" content="Jekyll" />
@@ -98,85 +98,57 @@
     <span> &gt; </span>
     <!-- <a href="http://awarrior.github.io/archives.html" rel="nofollow" >Archives</a>
     <span> &gt; </span>
-    Majority Vote -->
+    Reservoir Sampling -->
     Post
 </p>
-<h1 class="lotus-pagetit">Majority Vote</h1>
-<p class="lotus-meta">Category: ISSUE &nbsp;|&nbsp;  Publish: <time class="date" pubdate="December  2, 2014">December  2, 2014</time></p>
+<h1 class="lotus-pagetit">Reservoir Sampling</h1>
+<p class="lotus-meta">Category: ISSUE &nbsp;|&nbsp;  Publish: <time class="date" pubdate="December  4, 2014">December  4, 2014</time></p>
 <article  itemscope itemtype="http://schema.org/Article" class="lotus-post">
 <h3 id="describe">Describe</h3>
 
-<p>Give you a log of searching that contains N words, how to find out one key word which appears over N/2 times (definitely exists), just using O(n) time complexity?</p>
+<p>Sample K elements in N data, and N is not sure.</p>
 
-<h3 id="analyze">Analyze</h3>
+<p>Imaging one setting: there is one continuous infinite data flow coming one after another, and we can not save the whole data. This situation limits us that the number N of coming data is changeable and we have to keep the randomness in the sampling.</p>
 
-<p>There is a very important pre-condition in this issue: <em>the target word which we want to find definitely exists</em>.</p>
-
-<p>Let’s see several examples first:</p>
-
-<p><code>(A B) C A A B</code><br />
-<code>(A B) C A A B A</code><br />
-It doesn’t matter if we leave A&amp;B out, A is still the result.</p>
-
-<p><code>(C B) A A A B A</code><br />
-It doesn’t matter if we leave C&amp;B out, A is still the result.</p>
-
-<p><code>(A A) C B A B A</code><br />
-We have to record the apperance times of A for further judgement.</p>
-
-<p>Here we consider two word each time. A majority word is still a major one if we minus two words which are different from each other. Otherwise, if the two words are the same, we also need to save the information of this word.</p>
-
-<p>Actually, we can consider this words sequence as conbination of several word pairs (two words). </p>
+<p>There are many applications existing this problem such as search engine and file search.</p>
 
 <h3 id="resolve">Resolve</h3>
 
-<p>We can set two variables to use, one for saving current word (p) and another for counting (c). Initialize c=0 and p points to the front of the first word.</p>
+<p>The probability of each element drawing is the same, K/N, N is changeable.</p>
 
-<p>Make a rule while we iterate the words sequence like this:</p>
+<p>Method 1. Keep K minimum elements</p>
 
-<ol>
-  <li>
-    <p>If c=0, p saves no word;</p>
-  </li>
-  <li>
-    <p>Else if the next word equals the current one, c+=1; else c-=1.</p>
-  </li>
-</ol>
+<p>Use one Hash function to generate one random number according to each orignal value. Besides, define an array with K size to save the K minima in the random numbers. If there already are K minima and the new coming number is smaller than the biggest in array, let it swap with the biggest one. </p>
 
-<p>You can see the whole process in this website for details:</p>
+<p>However, this method’s performance is associated with the design of Hash function. That is to say that the mimima may stay at the fixed region and this loses the generality of randomness.</p>
 
-<p><a href="http://www.cs.utexas.edu/~moore/best-ideas/mjrty/index.html">http://www.cs.utexas.edu/~moore/best-ideas/mjrty/index.html</a></p>
+<p>Method 2. Keep K elements using probability</p>
 
-<p>PAPER TITLE: <em>MJRTY - A Fast Majority Vote Algorithm</em></p>
+<p>Pick up the first K elements and save them in the array with K size. The NO.K+1 data will be chosen with 1/i (i=K+1,K+2,…,N) probability to swap with one of elements in the array, which is seleted randomly.</p>
 
-<h3 id="code">Code</h3>
+<p>Here is the proof:</p>
 
-<pre><code>// use number expression for example
-int n[10] = { 2, 1, 2, 3, 4, 2, 2, 1, 2, 2 };
-int c = 0, p;
-for (int i : n) {
-	if (c == 0) {
-		p = i;
-		++c;
-	} else {
-		if (i == p)
-			++c;
-		else
-			--c;
-	}
-}
-std::cout &lt;&lt; c &lt;&lt; std::endl &lt;&lt; p &lt;&lt; std::endl;
-</code></pre>
+<hr />
+<p>Assume A[i] is the event that element A (saved in array) will leave in the Round i (i=K+1,K+2,…,N); AS is the event that element A will be substituted at this moment; B is the event that the coming new element will replace one of elements in the array; AC is the event that A becomes the element would like to be replaced.</p>
+
+<p>The probability of A[i+1] is:</p>
+
+<p><code>P(A[i+1]) = P(A[i]) * (1 - P(AS))</code><br />
+<code>= P(A[i]) * (1 - P(B) * P(AC))</code><br />
+<code>= (k/i) * (1 - (k/(i+1)) * (1/k))</code><br />
+<code>= (k/(i+1))</code></p>
+
+<p>Q.E.D.</p>
+
+<hr />
 
 
 </article>
 <p class="lotus-anno">Notice: this article use <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="nofollow" target="_blank" title="CC">BY-NC-SA</a> license. Please specify the source: <a href="" title="" rel="nofollow">Awarrior</a></p>
 <section class="lotus-nextpage fn-clear">
     
-    <div class="lotus-nextpage-left"><a class="prev" href="/pick-stone" rel="prev">&laquo;&nbsp;Pick Stone</a></div>
+    <div class="lotus-nextpage-left"><a class="prev" href="/maximum-continuous-subset" rel="prev">&laquo;&nbsp;Maximum Continuous Subset</a></div>
     
-    
-    <div class="lotus-nextpage-right"><a class="next" href="/maximum-continuous-subset" rel="next">Maximum Continuous Subset&nbsp;&raquo;</a></div>
     
 </section>
 
