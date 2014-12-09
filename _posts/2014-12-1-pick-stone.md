@@ -19,7 +19,7 @@ Please figure out the solution that the prior picker wins the game.
 
 ### Resolve
 
-There exits one assumption (*how to reach ?_?*):
+There exits one assumption:
 
 * If the quantity of stones is a Fibonacci number (in Fibonacci sequence), the first picker will lose this game.
 
