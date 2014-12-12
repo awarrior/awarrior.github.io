@@ -59,10 +59,6 @@ nav:
     url: /archives.html
     icon: icon-reorder
     class: none
-  - text: Github
-    url: https://github.com/awarrior
-    icon: icon-github
-    class: none
   - text: Links
     url: /links.html
     icon: icon-heart
@@ -78,9 +74,6 @@ page:
     last: true
   - text: Archives
     url: /archives.html
-    last: true
-  - text: Github
-    url: https://github.com/awarrior
     last: true
   - text: Links
     url: /links.html
