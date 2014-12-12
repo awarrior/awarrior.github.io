@@ -15,7 +15,7 @@ For example, [2,-1,-2,1,-4,2,8], A=[-1,-2,1,-4], B=[2,8], the maximum is 16.
 
 It's obvious see that to one array with N length, there is N-1 positions to seperate the original array. Then we get left sub-array and right sub-array.
 
-We have to iterate the left and right part and find out the minimum and maximum respectively using dynamic programming method. It's important to figure out that, in front of one number position x, the minimum VAL will be `VAL[x]=MIN{VAL[x-1]+arr[x], arr[x]}` (similar to maximum). Then we could get several minimal (or maximal) sumary value (different end positions) if we notice to mark in all the minimal (or maximal) sumary in all positions.
+We have to iterate the left and right part and find out the minimum and maximum respectively using dynamic programming method. It's important to figure out that, in front of one number position x, the minimum VAL will be `VAL[x] = MIN { VAL[x-1]+arr[x], arr[x] }` (similar to maximum). Then we could get several minimal (or maximal) sumary value (different end positions) if we notice to mark in all the minimal (or maximal) sumary in all positions.
 
 This algorithm will get O(N) time complexity.
 
@@ -43,8 +43,7 @@ This algorithm will get O(N) time complexity.
 		for (int i=b; i<sz-(1-b); ++i) {
 			sumType &s = sav[i][a];
 			if (i==0) {
-				s.sum = s.idx = arr[i];
-				s.len = 1;
+				s = {arr[i], arr[i], 1};
 			} else {
 				s.sum = sav[i-1][a].sum+arr[i];
 				s.len = sav[i-1][a].len+1;
