@@ -12,12 +12,12 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" media="all" href="http://awarrior.github.io/static/style.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="http://awarrior.github.io/static/pygments.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="http://localhost:4000/static/style.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="http://localhost:4000/static/pygments.css" />
     <!--[if lt IE 9]>
-    <script src="http://awarrior.github.io/static/js/html5.js" type="text/javascript"></script>
+    <script src="http://localhost:4000/static/js/html5.js" type="text/javascript"></script>
     <![endif]-->
-    <script src="http://awarrior.github.io/static/js/jquery.js" type="text/javascript"></script>
+    <script src="http://localhost:4000/static/js/jquery.js" type="text/javascript"></script>
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" class="home blog lotus index">
     <nav class="lotus-nav">
@@ -84,9 +84,9 @@
     </nav>
 
     <p class="lotus-breadcrub">
-    <a href="http://awarrior.github.io/index.html" rel="nofollow" rel="nofollow" title="home">Home</a>
+    <a href="http://localhost:4000/index.html" rel="nofollow" rel="nofollow" title="home">Home</a>
     <span> &gt; </span>
-    <!-- <a href="http://awarrior.github.io/archives.html" rel="nofollow" >Archives</a>
+    <!-- <a href="http://localhost:4000/archives.html" rel="nofollow" >Archives</a>
     <span> &gt; </span>
     Maximum Continuous Subset -->
     Post
@@ -120,161 +120,158 @@
 
 <p>the 1st algorithm</p>
 
-<pre><code>#include &lt;iostream&gt;
-#include &lt;unordered_map&gt;
-using std::cout;
-using std::endl;
-using std::unordered_map;
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;unordered_map&gt;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="p">;</span>
 
-int data[] = {15, 7, 12, 6, 14, 13, 9, 11};
-unordered_map&lt;int,int&gt; parent;
-unordered_map&lt;int,int&gt; rank;
-unordered_map&lt;int,int&gt; cnt;
-int max, val;
+<span class="kt">int</span> <span class="n">data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">};</span>
+<span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">parent</span><span class="p">;</span>
+<span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">rank</span><span class="p">;</span>
+<span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">cnt</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">max</span><span class="p">,</span> <span class="n">val</span><span class="p">;</span>
 
-int findParent(int x) {
-	if (x != parent[x])
-		parent[x] = findParent(parent[x]);
-	return parent[x];
-}
+<span class="kt">int</span> <span class="nf">findParent</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+		<span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">findParent</span><span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]);</span>
+	<span class="k">return</span> <span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">];</span>
+<span class="p">}</span>
 
-void unionSet(int x, int y) {
-	int a = findParent(x);
-	int b = findParent(y);
-	if (a != b) {
-		if (rank[a] &lt; rank[b]) {
-			parent[a] = b;
-			cnt[b]+=cnt[b];
-			max = max&lt;cnt[b]?cnt[b]:max;
-			val = b;
-		} else {
-			parent[b] = a;
-			cnt[a]+=cnt[b];
-			max = max&lt;cnt[a]?cnt[a]:max;
-			val = a;
-			if (rank[a] == rank[b])
-				++rank[a];
-		}
-	}
-}
+<span class="kt">void</span> <span class="nf">unionSet</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="n">findParent</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+	<span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">findParent</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">!=</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">rank</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">rank</span><span class="p">[</span><span class="n">b</span><span class="p">])</span> <span class="p">{</span>
+			<span class="n">parent</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+			<span class="n">cnt</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">+=</span><span class="n">cnt</span><span class="p">[</span><span class="n">b</span><span class="p">];</span>
+			<span class="n">max</span> <span class="o">=</span> <span class="n">max</span><span class="o">&lt;</span><span class="n">cnt</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">?</span><span class="n">cnt</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">:</span><span class="n">max</span><span class="p">;</span>
+			<span class="n">val</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="n">parent</span><span class="p">[</span><span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+			<span class="n">cnt</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">+=</span><span class="n">cnt</span><span class="p">[</span><span class="n">b</span><span class="p">];</span>
+			<span class="n">max</span> <span class="o">=</span> <span class="n">max</span><span class="o">&lt;</span><span class="n">cnt</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">?</span><span class="n">cnt</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">:</span><span class="n">max</span><span class="p">;</span>
+			<span class="n">val</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">rank</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">==</span> <span class="n">rank</span><span class="p">[</span><span class="n">b</span><span class="p">])</span>
+				<span class="o">++</span><span class="n">rank</span><span class="p">[</span><span class="n">a</span><span class="p">];</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
 
-int main() {
-	for (auto d : data) {
-		if (parent.find(d)!=parent.cend())
-			continue;
-		parent[d] = d;
-		rank[d] = 0;
-		cnt[d] = 1;
-		if (parent.find(d-1)!=parent.cend())
-			unionSet(d-1, d);
-		if (parent.find(d+1)!=parent.cend())
-			unionSet(d+1, d);
-	}
-	cout&lt;&lt;max&lt;&lt;":";
-	for (auto c : cnt)
-		if (findParent(c.first) == val)
-			cout&lt;&lt;' '&lt;&lt;c.first;
-	cout&lt;&lt;endl;
-	return 0;
-}
-</code></pre>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">d</span> <span class="p">:</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">parent</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="o">!=</span><span class="n">parent</span><span class="p">.</span><span class="n">cend</span><span class="p">())</span>
+			<span class="k">continue</span><span class="p">;</span>
+		<span class="n">parent</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>
+		<span class="n">rank</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="n">cnt</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">parent</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">d</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">!=</span><span class="n">parent</span><span class="p">.</span><span class="n">cend</span><span class="p">())</span>
+			<span class="n">unionSet</span><span class="p">(</span><span class="n">d</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="p">);</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">parent</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">!=</span><span class="n">parent</span><span class="p">.</span><span class="n">cend</span><span class="p">())</span>
+			<span class="n">unionSet</span><span class="p">(</span><span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">max</span><span class="o">&lt;&lt;</span><span class="s">&quot;:&quot;</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">c</span> <span class="p">:</span> <span class="n">cnt</span><span class="p">)</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">findParent</span><span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">first</span><span class="p">)</span> <span class="o">==</span> <span class="n">val</span><span class="p">)</span>
+			<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="sc">&#39; &#39;</span><span class="o">&lt;&lt;</span><span class="n">c</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+	<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
 
 <p>the 2nd algorithm</p>
 
-<pre><code>#include &lt;iostream&gt;
-#include &lt;unordered_map&gt;
-using std::cout;
-using std::endl;
-using std::unordered_map;
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;unordered_map&gt;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="p">;</span>
 
-int data[] = {15, 7, 12, 6, 14, 13, 9, 11};
-unordered_map&lt;int,int&gt; um;
-int max;
-int val;
+<span class="kt">int</span> <span class="n">data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">};</span>
+<span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">um</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">max</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
 
-int main() {
-	for (auto d : data) {
-		if (um.find(d)!=um.cend())
-			continue;
-		um[d] = 1;
-		if (um.find(d-1)!=um.cend()) {
-			um[d] += um[d-1];
-			um[d-um[d-1]] = um[d];
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">d</span> <span class="p">:</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">um</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="o">!=</span><span class="n">um</span><span class="p">.</span><span class="n">cend</span><span class="p">())</span>
+			<span class="k">continue</span><span class="p">;</span>
+		<span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">um</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">d</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">!=</span><span class="n">um</span><span class="p">.</span><span class="n">cend</span><span class="p">())</span> <span class="p">{</span>
+			<span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">+=</span> <span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+			<span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="o">-</span><span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="p">];</span>
 			
-			if (max &lt; um[d]) {
-				max = um[d];
-				val = d-um[d-1];
-			}
-		}
-		if (um.find(d+1)!=um.cend()) {
-			int idx = d;
-			if (um.find(d-1)!=um.cend())
-				idx = d-um[d]+1;
+			<span class="k">if</span> <span class="p">(</span><span class="n">max</span> <span class="o">&lt;</span> <span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="p">])</span> <span class="p">{</span>
+				<span class="n">max</span> <span class="o">=</span> <span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="p">];</span>
+				<span class="n">val</span> <span class="o">=</span> <span class="n">d</span><span class="o">-</span><span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">um</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">!=</span><span class="n">um</span><span class="p">.</span><span class="n">cend</span><span class="p">())</span> <span class="p">{</span>
+			<span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">um</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">d</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">!=</span><span class="n">um</span><span class="p">.</span><span class="n">cend</span><span class="p">())</span>
+				<span class="n">idx</span> <span class="o">=</span> <span class="n">d</span><span class="o">-</span><span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
 
-			um[d] += um[d+1];
-			um[d+um[d+1]] = um[d];
-			um[idx] = um[d];
+			<span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">+=</span> <span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+			<span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="o">+</span><span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="p">];</span>
+			<span class="n">um</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="p">];</span>
 
-			if (max &lt; um[d]) {
-				max = um[d];
-				val = idx;
-			}
-		}
-	}
+			<span class="k">if</span> <span class="p">(</span><span class="n">max</span> <span class="o">&lt;</span> <span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="p">])</span> <span class="p">{</span>
+				<span class="n">max</span> <span class="o">=</span> <span class="n">um</span><span class="p">[</span><span class="n">d</span><span class="p">];</span>
+				<span class="n">val</span> <span class="o">=</span> <span class="n">idx</span><span class="p">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
 
-	cout&lt;&lt;max&lt;&lt;":";
-	for (int i=0; i&lt;max; ++i)
-		cout&lt;&lt;" "&lt;&lt;val+i;
-	cout&lt;&lt;endl;
-	return 0;
-}
-</code></pre>
+	<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">max</span><span class="o">&lt;&lt;</span><span class="s">&quot;:&quot;</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">max</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+		<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot; &quot;</span><span class="o">&lt;&lt;</span><span class="n">val</span><span class="o">+</span><span class="n">i</span><span class="p">;</span>
+	<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
 
 <p>the 3th algorithm</p>
 
-<pre><code>#include &lt;iostream&gt;
-#include &lt;bitset&gt;
-#define N 20
-using std::cout;
-using std::endl;
-using std::bitset;
+<div class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include &lt;iostream&gt;</span>
+<span class="cp">#include &lt;bitset&gt;</span>
+<span class="cp">#define N 20</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">bitset</span><span class="p">;</span>
 
-int data[] = {15, 7, 12, 6, 14, 13, 9, 11};
-bitset&lt;N&gt; bs;
-int max;
-int val;
+<span class="kt">int</span> <span class="n">data</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">11</span><span class="p">};</span>
+<span class="n">bitset</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span> <span class="n">bs</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">max</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
 
-int main() {
-	for (auto d : data) {
-		if (bs.test(d))
-			continue;
-		bs.set(d);
-	}
-	int cnt = 0;
-	int beg = -1;
-	for (int i=0; i&lt;bs.size(); ++i) {
-		if (bs.test(i)) {
-			if (beg == -1) {
-				beg = i;
-			}
-			++cnt;
-		} else if (beg != -1) {
-			if (max &lt; cnt) {
-				max = cnt;
-				val = beg;
-			}
-			cnt = 0;
-			beg = -1;
-		}
-	}
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">d</span> <span class="p">:</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">bs</span><span class="p">.</span><span class="n">test</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
+			<span class="k">continue</span><span class="p">;</span>
+		<span class="n">bs</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">beg</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">bs</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">bs</span><span class="p">.</span><span class="n">test</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">beg</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+				<span class="n">beg</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+			<span class="p">}</span>
+			<span class="o">++</span><span class="n">cnt</span><span class="p">;</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">beg</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">max</span> <span class="o">&lt;</span> <span class="n">cnt</span><span class="p">)</span> <span class="p">{</span>
+				<span class="n">max</span> <span class="o">=</span> <span class="n">cnt</span><span class="p">;</span>
+				<span class="n">val</span> <span class="o">=</span> <span class="n">beg</span><span class="p">;</span>
+			<span class="p">}</span>
+			<span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+			<span class="n">beg</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
 
-	cout&lt;&lt;max&lt;&lt;":";
-	for (int i=0; i&lt;max; ++i)
-		cout&lt;&lt;" "&lt;&lt;val+i;
-	cout&lt;&lt;endl;
-	return 0;
-}
-</code></pre>
+	<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">max</span><span class="o">&lt;&lt;</span><span class="s">&quot;:&quot;</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">max</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+		<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot; &quot;</span><span class="o">&lt;&lt;</span><span class="n">val</span><span class="o">+</span><span class="n">i</span><span class="p">;</span>
+	<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
 
 
 </article>
@@ -287,9 +284,10 @@ int main() {
     <div class="lotus-nextpage-right"><a class="next" href="/reservoir-sampling" rel="next">Reservoir Sampling&nbsp;&raquo;</a></div>
     
 </section>
+<br/>
 
 
-<script src="http://awarrior.github.io/static/js/jquery.scrollTo.js" type="text/javascript"></script>
-<script src="http://awarrior.github.io/static/js/iLotus.js" type="text/javascript"></script>
+<script src="http://localhost:4000/static/js/jquery.scrollTo.js" type="text/javascript"></script>
+<script src="http://localhost:4000/static/js/iLotus.js" type="text/javascript"></script>
 </body>
 </html>

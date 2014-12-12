@@ -30,9 +30,9 @@ const int arr[] = {2,-1,-2,1,-4,2,8};
 const int sz = sizeof(arr)/sizeof(int);
 
 struct sumType {
-	int sum;	// the sumary number
-	int len;	// the length of sumary
-	int idx;	// the best index in the history
+	int sum; // the sumary number
+	int len; // the length of sumary
+	int idx; // the best index in the history
 };
 
 // columns represent min & max

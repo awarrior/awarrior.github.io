@@ -47,20 +47,22 @@ PAPER TITLE: *MJRTY - A Fast Majority Vote Algorithm*
 
 ### Code
 
-	// use number expression for example
-	int n[10] = { 2, 1, 2, 3, 4, 2, 2, 1, 2, 2 };
-	int c = 0, p;
-	for (int i : n) {
-		if (c == 0) {
-			p = i;
+{% highlight c++ %}
+// use number expression for example
+int n[10] = { 2, 1, 2, 3, 4, 2, 2, 1, 2, 2 };
+int c = 0, p;
+for (int i : n) {
+	if (c == 0) {
+		p = i;
+		++c;
+	} else {
+		if (i == p)
 			++c;
-		} else {
-			if (i == p)
-				++c;
-			else
-				--c;
-		}
+		else
+			--c;
 	}
-	std::cout << c << std::endl << p << std::endl;
+}
+std::cout << c << std::endl << p << std::endl;
+{% endhighlight %}
 
 
