@@ -2,7 +2,7 @@
 layout: post
 title: First Page
 description: 
-category: STUFF
+category: CHITCHAT
 ---
 
 Stable is a simple word but is not simple.
