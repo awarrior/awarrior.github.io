@@ -11,8 +11,8 @@ Besides the realization of tradictional binary tree based on recursion or stack,
 
 ### Code
 
+In-order:
 {% highlight c++ %}
-// in-order
 void morrisInorder() {
 	node *it = &root;
 	while(it) {
@@ -38,8 +38,8 @@ void morrisInorder() {
 }
 {% endhighlight %}
 
+Re-order:
 {% highlight c++ %}
-// pre-order
 void morrisPreorder() {
 	node *it = &root;
 	while(it) {
@@ -59,8 +59,8 @@ void morrisPreorder() {
 }
 {% endhighlight %}
 
+Post-order:
 {% highlight c++ %}
-// post-order
 void reversePrint(node *begin, node *end) {
 	node *it = begin;
 	if (it == end) {
