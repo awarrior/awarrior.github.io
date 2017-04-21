@@ -7,5 +7,7 @@ several JDO important classes: PersistenceManager/PersistenceManagerFactory
 
 org.apache.hadoop.hive.metastore.ObjectStore: getPMF() 
 
-get PersistenceManagerFactory using properties(according to HiveConf - hive-site.xml), the connection between JDO and Datanucleus in 'javax.jdo.PersistenceManagerFactoryClass'
+get PersistenceManagerFactory using properties(according to HiveConf - hive-site.xml), the connection between JDO and Datanucleus is the property called 'javax.jdo.PersistenceManagerFactoryClass'
+
+DataStoreCache dsc = pmf.getDataStoreCache(); # level 2
 
