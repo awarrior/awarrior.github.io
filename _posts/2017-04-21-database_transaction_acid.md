@@ -2,7 +2,7 @@ ACID (Atomicity, Consistency, Isolation, Durability)
 A: all operations work or not 
 C: keep consistent status of system
 I: transaction integrity to system
-  https://en.wikipedia.org/wiki/Isolation_(database_systems)
+  [wiki](https://en.wikipedia.org/wiki/Isolation_(database_systems))
   read phenomena:
   dirty reads/non-repeatable reads/phantom reads
   Isolation levels (higher level used, possibility of deadlock increased)
